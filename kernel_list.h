@@ -338,7 +338,7 @@ static inline void list_del_init_careful(struct list_head *entry)
 static inline int list_empty_careful(const struct list_head *head)
 {
 	// struct list_head *next = smp_load_acquire(&head->next);
-	struct list_head *next = &head->next;
+	struct list_head *next = (struct list_head*)&head->next;
 	return list_is_head(next, head) && (next == READ_ONCE(head->prev));
 }
 
